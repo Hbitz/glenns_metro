@@ -12,7 +12,7 @@ BUILD_DIR := build
 
 # Flaggor: standard, varningar, optimering + auto-dep för headers 
 # Detta är en enkel variabel definition
-CFLAGS := -std=c90 -Wall -Wextra -MMD -MP
+CFLAGS := -std=c99 -Wall -Wextra -MMD -MP -Wno-comment
 
 # Länkarflaggor
 # Detta är en enkel variabel definition

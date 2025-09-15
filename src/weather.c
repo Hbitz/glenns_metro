@@ -2,7 +2,9 @@
 #include "weather.h"
 #include <stdio.h>
 #include "cities.h"
+#include "http.h"
 
+http response;
 
 int run()
 {
@@ -16,8 +18,10 @@ int run()
         if (find_city_coordinates(input, &lat, &lon)) {
             generate_weather_url(lat, lon, url, sizeof(url));
             printf("Generated URL: %s\n", url);
-            http_get(url, NULL); // Placeholder for response handling
             
+            http_get(url, &response);
+            printf("%s\n", response.data);
+
         } else {
             printf("City not found.\n");
         }

@@ -1,5 +1,8 @@
+#include "Json.h"
 #include "Meteo.h"
 #include "HTTP.h"
+
+
 
 int Meteo_init(Meteo* meteo, const char* api_url)
 {

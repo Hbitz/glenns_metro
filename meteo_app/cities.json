@@ -34,5 +34,14 @@
         "is_day": true,
         "weathercode": 3,
         "timestamp": 1758547037
+    },
+    {
+        "name": "Göteborg",
+        "temperature": 14.800000190734863,
+        "windspeed": 20.899999618530273,
+        "winddirection": 290,
+        "is_day": true,
+        "weathercode": 0,
+        "timestamp": 1758547933
     }
 ]

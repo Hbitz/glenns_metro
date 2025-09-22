@@ -5,7 +5,7 @@ SRC_DIRS := src
 BUILD_DIR := build
 
 # Flaggor
-CFLAGS := -std=c99 -Wall -Wextra -MMD -MP $(addprefix -I,$(SRC_DIRS))
+CFLAGS := -std=c99 -Wall -Wextra -MMD -MP $(addprefix -I,$(SRC_DIRS)) -Isrc/libs -Isrc/jansson/src
 LDFLAGS := -flto -Wl,--gc-sections
 LIBS := -lcurl
 
@@ -19,8 +19,17 @@ DEP := $(OBJ:.o=.d)
 # Binärens namn
 BIN := main
 
+
+# Ensure jansson_config.h exists before building
+src/jansson/src/jansson_config.h: src/jansson/src/jansson_config.h.in
+	sed -e 's/@json_inline@/inline/g' \
+	    -e 's/@json_have_long_long@/1/g' \
+	    -e 's/@json_have_atomic_builtins@/1/g' \
+	    -e 's/@json_have_sync_builtins@/1/g' \
+	    $< > $@
+
 # Standardmål
-all: $(BIN)
+all: src/jansson/src/jansson_config.h $(BIN)
 	@echo "Build complete."
 
 # Länka ihop allt

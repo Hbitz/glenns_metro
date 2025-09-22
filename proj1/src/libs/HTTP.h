@@ -1,7 +1,6 @@
 #ifndef __HTTP_h__
 #define __HTTP_h__
 
-
 #include <stdbool.h>
 #include <stddef.h>
 

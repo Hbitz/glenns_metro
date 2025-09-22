@@ -25,5 +25,14 @@
         "is_day": false,
         "weathercode": 2,
         "timestamp": 1758478932
+    },
+    {
+        "name": "Stockholm",
+        "temperature": 15.0,
+        "windspeed": 20.200000762939453,
+        "winddirection": 261,
+        "is_day": true,
+        "weathercode": 0,
+        "timestamp": 1758545222
     }
 ]

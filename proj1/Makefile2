@@ -1,0 +1,26 @@
+CC := gcc
+CFLAGS := -std=c99 -Wall -Wextra -MMD -MP -Isrc/jansson/src
+LDFLAGS := -flto -Wl,--gc-sections
+LIBS := -lcurl
+
+# Källkod
+SRC := $(wildcard src/*.c) $(wildcard src/jansson/src/*.c)
+OBJ := $(patsubst src/%.c,build/%.o,$(SRC))
+DEP := $(OBJ:.o=.d)
+
+BIN := main
+
+all: $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LDFLAGS) $(OBJ) -o $@ $(LIBS)
+
+# Generisk regel: bygg .o i build/ från .c i src/
+build/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+-include $(DEP)
+
+clean:
+	rm -rf build $(BIN)

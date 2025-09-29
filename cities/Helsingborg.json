@@ -1,7 +1,7 @@
 {
     "latitude": 56.046501159667969,
     "longitude": 12.694499969482422,
-    "generationtime_ms": 0.06961822509765625,
+    "generationtime_ms": 0.22912025451660156,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
     "timezone_abbreviation": "GMT",
@@ -26,23 +26,23 @@
         "wind_gusts_10m": "km/h"
     },
     "current": {
-        "time": "2025-09-29T12:15",
+        "time": "2025-09-29T13:30",
         "interval": 900,
-        "temperature_2m": 16.5,
-        "relative_humidity_2m": 66,
-        "apparent_temperature": 14.300000000000001,
+        "temperature_2m": 15.300000000000001,
+        "relative_humidity_2m": 68,
+        "apparent_temperature": 12.699999999999999,
         "is_day": 1,
         "precipitation": 0.0,
         "rain": 0.0,
         "showers": 0.0,
         "snowfall": 0.0,
-        "weather_code": 2,
-        "cloud_cover": 70,
-        "pressure_msl": 1027.0,
-        "surface_pressure": 1025.5,
-        "wind_speed_10m": 14.800000000000001,
-        "wind_direction_10m": 123,
-        "wind_gusts_10m": 27.399999999999999
+        "weather_code": 3,
+        "cloud_cover": 82,
+        "pressure_msl": 1026.5999999999999,
+        "surface_pressure": 1025.0999999999999,
+        "wind_speed_10m": 16.600000000000001,
+        "wind_direction_10m": 97,
+        "wind_gusts_10m": 28.800000000000001
     },
     "name": "Helsingborg"
 }

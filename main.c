@@ -90,6 +90,8 @@ int main()
                     printf("Current %s in %s: %.2f %s\n", 
                            parameter_name, city->name, value, unit);
                     printf("-----------------------------\n\n");
+                    getchar(); // Consume newline
+                    getchar(); // Wait for user to press Enter
                 }
                 
             } break;

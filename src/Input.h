@@ -18,7 +18,7 @@ static inline Input_Command Input_SelectCity(Cities* _Cities, City** _CityPtr)
 
 	printf("\n-----------------------------------------\n");
 	Cities_Print(_Cities);
-	printf("-----------------------------------------\n");
+	printf("------------------------------------------\n");
 	
 	
 	char buffer[100];

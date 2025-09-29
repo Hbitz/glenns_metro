@@ -3,3 +3,4 @@ meteo_app/build/*
 meteo_app/weather_app
 cities/*
 cache/*
+WeatherClient

@@ -200,15 +200,11 @@ void Cities_AddFromStringList(Cities* _Cities, const char* _StringList)
 				*(ptr) = '\0';
 
 				int getName = Cities_GetName(_Cities, name, NULL);
-				if (getName == 0) {
-					printf("City already exists: %s\n", name);
-				}
-				else if (getName == -2) {
+
+				if (getName == -2) {
 					Cities_Create(_Cities, name, lat_str, lon_str, NULL);
 				}
-				else {
-					printf("Error checking city existence: %s\n", name);
-				}
+
 
 				name = NULL;
 				lat_str = NULL;

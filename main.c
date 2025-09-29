@@ -72,7 +72,8 @@ int main()
                     Weather_DisplayAllData(city);
                     getchar(); // Consume newline
                     getchar();
-                    continue;
+                
+                    break;
                 }
 
                 if (choice < 1 || choice > 8)

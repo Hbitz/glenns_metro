@@ -151,7 +151,15 @@ json_t* City_GetWeatherData(City* _City)
         {
             printf("Loading cached response from %s (age %.0f seconds)\n", cache_filepath, age);
             root = json_load_file(cache_filepath, 0, NULL);
-            if (root != NULL)
+			// Now checking if loaded data has "temperature"
+			json_t* temperature = json_object_get(root, "temperature_2m");
+			if (temperature == NULL)
+			{
+				// If temperature does not exist, we need to fetch new data
+				printf("No cached temperature data for City %s, fetching new data...\n", _City->name);
+			}
+
+            else if (root != NULL)
             {
                 return root; // fresh cache
             }

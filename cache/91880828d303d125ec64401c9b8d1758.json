@@ -1,6 +1,6 @@
 {
-    "latitude": 55.604999542236328,
-    "longitude": 13.003800392150879,
+    "latitude": 55.606524999999998,
+    "longitude": 13.002045000000001,
     "generationtime_ms": 0.066041946411132812,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
@@ -43,6 +43,5 @@
         "wind_speed_10m": 17.600000000000001,
         "wind_direction_10m": 126,
         "wind_gusts_10m": 35.299999999999997
-    },
-    "name": "Malmö"
+    }
 }

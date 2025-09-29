@@ -1,105 +1,96 @@
-# Compiler and flags
+# C-kompilator (byt vid behov, t.ex. clang)
+# Detta är en enkel variabel definition
 CC := gcc
-CFLAGS := -std=c99 -Wall -Wextra -MMD -MP -g
-INCLUDES := -Isrc/libs -Isrc/jansson/src
-LDFLAGS := -lcurl
-TARGET := weather_app
 
-# Directories
-SRC_DIR := src
-LIBS_DIR := $(SRC_DIR)/libs
-JANSSON_DIR := $(SRC_DIR)/jansson/src
+# Katalog där källfilerna finns.
+# Detta är en enkel variabel definition
+SRC_DIR := .
+
+# Katalog där objektfilerna ska placeras
+# Detta är en enkel variabel definition
 BUILD_DIR := build
 
-# Jansson source files
-JANSSON_SOURCES := $(wildcard $(JANSSON_DIR)/*.c)
-JANSSON_OBJECTS := $(JANSSON_SOURCES:$(JANSSON_DIR)/%.c=$(BUILD_DIR)/jansson/%.o)
+# Flaggor: standard, varningar, optimering + auto-dep för headers 
+# Detta är en enkel variabel definition
+CFLAGS := -std=c99 -Wall -Wextra -MMD -MP -Werror -Wfatal-errors -Wno-format-truncation -Iincludes -Ilibs
 
-# App source files
-LIBS_SOURCES := $(wildcard $(LIBS_DIR)/*.c)
-LIBS_OBJECTS := $(LIBS_SOURCES:$(LIBS_DIR)/%.c=$(BUILD_DIR)/libs/%.o)
+# Länkarflaggor
+# Detta är en enkel variabel definition
+LDFLAGS := -flto -Wl,--gc-sections
 
-# Main source
-MAIN_OBJECT := $(BUILD_DIR)/src/main.o
+# Bibliotek att länka mot
+# Detta är en enkel variabel definition
+LIBS := -lcurl
 
-# All objects
-ALL_OBJECTS := $(JANSSON_OBJECTS) $(LIBS_OBJECTS) $(MAIN_OBJECT)
+# Hittar alla .c filer rekursivt i katalogen.
+# Den anropar 'find' kommandot i Linux och formaterar resultatet som en lista på sökvägar med mellanslag mellan varje
+SRC := $(shell find -L $(SRC_DIR) -type f -name '*.c')
 
-# Dependency files
-DEPS := $(ALL_OBJECTS:.o=.d)
+# Mappa varje .c till motsvarande .o i BUILD_DIR
+# Här anropar den inbyggda 'patsubst' funktionen i Make för att ersätta prefix och suffix
+# Alltså, den tar varje filväg i SRC som matchar mönstret $(SRC_DIR)/%.c och ersätter det med $(BUILD_DIR)/%.o
+OBJ := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC))
 
-# Default target
-all: $(TARGET)
+# Tillhörande .d-filer (dependency-filer skapade av -MMD)
+# Här härleder vi .d-filerna direkt från OBJ genom att bara byta filändelsen från .o till .d
+# Eftersom varje .o kompileras med -MMD (och vi anger -o $@), skriver GCC normalt .d filerna i samma sökväg som .o filerna.
+# Så mappningen stämmer rekursivt.
+DEP := $(OBJ:.o=.d)
 
-# Create the executable
-$(TARGET): $(ALL_OBJECTS)
-	@echo "Linking $(TARGET)..."
-	$(CC) $(ALL_OBJECTS) -o $@ $(LDFLAGS)
-	@echo "Build complete!"
+# Namnet på den körbara filen
+# Detta är en enkel variabel definition
+BIN := WeatherClient
 
-# Compile Jansson objects
-$(BUILD_DIR)/jansson/%.o: $(JANSSON_DIR)/%.c
-	@mkdir -p $(dir $@)
+# Standardmål: bygg binären
+# Se det som en function man kan anropa utifrån (make all)
+# Det efter : betyder att detta mål beror på $(BIN)
+# Alltså, för att bygga målet 'all', måste FÖRST '$(BIN)' byggas.
+# Alltså raden "$(BIN): $(OBJ)" nedan körs först
+all: $(BIN)
+	@echo "Build complete."
+
+# Länksteg: binären beror på alla objektfiler
+# Se också detta som en funktion men som anropas inifrån (av 'all' målet)
+# Och för att bygga målet '$(BIN)', måste FÖRST listan på objektfiler byggas (alla .o filer i $(OBJ))
+# Det ser vi på raden efter : som säger att '$(BIN)' beror på hela listan med objektfiler, alltså '$(OBJ)'
+# Eftersom OBJ är en lista på alla .o filer som ska byggas så tar den varje sökväg och letar efter ett mål som matchar
+# mönstret "$(BUILD_DIR)/%.o" (se nedan) och kör det för varje fil i listan.
+# Alltså raden "$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c" nedan körs för alla inaktuella filer först. (Han jämför tidsstämplar mellan .c och .o i filsystemet)
+$(BIN): $(OBJ)
+	@$(CC) $(LDFLAGS) $(OBJ) -o $@ $(LIBS)
+
+# Mönsterregel: bygger en .o från motsvarande .c
+# Samma här, detta är en funktion som anropas inifrån (av '$(BIN)' målet)
+# Om varje enskild .o fil saknas eller är äldre än sin motsvarande .c fil (eller någon header via dep-filen), körs denna regel för att kompilera.
+# Det ser vi på raden efter : som säger att varje .o fil i $(BUILD_DIR) beror på motsvarande .c fil i $(SRC_DIR)
+# Det den gör är att den kör denna regel för varje fil som matchar mönstret, exempelvis: 
+#   $(BUILD_DIR)/subfolder/test.o: $(SRC_DIR)/subfolder/test.c
+#   $(BUILD_DIR)/main.o: $(SRC_DIR)/main.c
+# 	osv...
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# Compile library objects
-$(BUILD_DIR)/libs/%.o: $(LIBS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Compile main object
-$(BUILD_DIR)/src/main.o: $(SRC_DIR)/main.c
-	@mkdir -p $(dir $@)
-	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+# Hjälpmål: kör programmet om det är byggt
+# Se det som en function anropas utifrån (make run)
+# Men för att köra, måste FÖRST '$(BIN)' byggas
+run: $(BIN)
+	./$(BIN)
 
-# Run the application
-run: $(TARGET)
-	./$(TARGET)
-
-# Clean build files
+# Hjälpmål: städa bort genererade filer
 clean:
-	@echo "Cleaning build files..."
-	rm -rf $(BUILD_DIR) $(TARGET)
-	@echo "Clean complete!"
+	@rm -rf $(BUILD_DIR) $(BIN)
 
-# Debug build with extra debugging symbols
-debug: CFLAGS += -DDEBUG -O0 -ggdb3
-debug: $(TARGET)
+# Hjälpmål: skriv ut variabler för felsökning
+# Kör make print för att se variablerna efter expansion
+print:
+	@echo "Källfiler: $(SRC)"
+	@echo "Objektfiler: $(OBJ)"
+	@echo "Dependency-filer: $(DEP)"
 
-# Release build with optimization
-release: CFLAGS += -O2 -DNDEBUG
-release: $(TARGET)
+# Inkludera header-beroenden (prefix '-' = ignorera om de inte finns ännu)
+-include $(DEP)
 
-# Install dependencies (Ubuntu/Debian)
-install-deps:
-	@echo "Installing dependencies..."
-	sudo apt-get update
-	sudo apt-get install -y libcurl4-openssl-dev build-essential
-
-# Print variables for debugging
-print-%:
-	@echo $* = $($*)
-
-# Create directory structure
-init:
-	@mkdir -p $(BUILD_DIR)/{jansson,libs,src}
-
-# Help target
-help:
-	@echo "Available targets:"
-	@echo "  all       - Build the application (default)"
-	@echo "  run       - Build and run the application"
-	@echo "  clean     - Remove build files"
-	@echo "  debug     - Build with debug symbols"
-	@echo "  release   - Build optimized version"
-	@echo "  install-deps - Install required dependencies"
-	@echo "  help      - Show this help"
-
-# Include dependency files
--include $(DEPS)
-
-# Phony targets
-.PHONY: all clean run debug release install-deps help init print-%
+# Dessa mål är inte riktiga filer; kör alltid när de anropas
+.PHONY: all run clean

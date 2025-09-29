@@ -1,0 +1,362 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/dump.o",
+      "libs/jansson/dump.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/dump.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/dump.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/error.o",
+      "libs/jansson/error.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/error.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/error.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/hashtable.o",
+      "libs/jansson/hashtable.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/hashtable.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/hashtable.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/hashtable_seed.o",
+      "libs/jansson/hashtable_seed.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/hashtable_seed.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/hashtable_seed.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/load.o",
+      "libs/jansson/load.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/load.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/load.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/memory.o",
+      "libs/jansson/memory.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/memory.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/memory.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/pack_unpack.o",
+      "libs/jansson/pack_unpack.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/pack_unpack.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/pack_unpack.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/strbuffer.o",
+      "libs/jansson/strbuffer.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/strbuffer.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/strbuffer.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/strconv.o",
+      "libs/jansson/strconv.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/strconv.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/strconv.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/utf.o",
+      "libs/jansson/utf.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/utf.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/utf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/value.o",
+      "libs/jansson/value.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/value.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/value.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/jansson/version.o",
+      "libs/jansson/version.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/jansson/version.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/jansson/version.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/utils/HTTPClient.o",
+      "libs/utils/HTTPClient.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/utils/HTTPClient.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/utils/HTTPClient.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/utils/LinkedList.o",
+      "libs/utils/LinkedList.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/utils/LinkedList.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/utils/LinkedList.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/libs/utils/md5.o",
+      "libs/utils/md5.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/libs/utils/md5.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/libs/utils/md5.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/main.o",
+      "main.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/main.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/src/Cities.o",
+      "src/Cities.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/src/Cities.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/src/Cities.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wfatal-errors",
+      "-Wno-format-truncation",
+      "-Iincludes",
+      "-Ilibs",
+      "-c",
+      "-o",
+      "build/src/City.o",
+      "src/City.c"
+    ],
+    "directory": "/home/olletidblom/Git/glenns_metro",
+    "file": "/home/olletidblom/Git/glenns_metro/src/City.c",
+    "output": "/home/olletidblom/Git/glenns_metro/build/src/City.o"
+  }
+]

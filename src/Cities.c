@@ -304,7 +304,7 @@ void Cities_Print(Cities* _Cities)
 	if(_Cities == NULL)
 		return;
 
-	int index = 1;
+	int index = 0;
 	City* city = NULL;
 	LinkedList_ForEach(&_Cities->list, &city)
 	{

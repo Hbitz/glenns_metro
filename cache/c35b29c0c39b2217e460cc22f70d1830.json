@@ -1,6 +1,6 @@
 {
-    "latitude": 63.825801849365234,
-    "longitude": 20.26300048828125,
+    "latitude": 63.828856999999999,
+    "longitude": 20.256730000000001,
     "generationtime_ms": 0.072598457336425781,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
@@ -43,6 +43,5 @@
         "wind_speed_10m": 18.399999999999999,
         "wind_direction_10m": 206,
         "wind_gusts_10m": 34.600000000000001
-    },
-    "name": "Umeå"
+    }
 }

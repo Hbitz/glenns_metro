@@ -1,11 +1,11 @@
 {
-    "latitude": 60.674900054931641,
-    "longitude": 17.141300201416016,
-    "generationtime_ms": 0.07534027099609375,
+    "latitude": 65.58381,
+    "longitude": 22.155182,
+    "generationtime_ms": 0.19919872283935547,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
     "timezone_abbreviation": "GMT",
-    "elevation": 17.0,
+    "elevation": 11.0,
     "current_units": {
         "time": "iso8601",
         "interval": "seconds",
@@ -28,21 +28,20 @@
     "current": {
         "time": "2025-09-29T12:45",
         "interval": 900,
-        "temperature_2m": 14.9,
-        "relative_humidity_2m": 54,
-        "apparent_temperature": 12.699999999999999,
+        "temperature_2m": 12.6,
+        "relative_humidity_2m": 80,
+        "apparent_temperature": 8.5999999999999996,
         "is_day": 1,
         "precipitation": 0.0,
         "rain": 0.0,
         "showers": 0.0,
         "snowfall": 0.0,
-        "weather_code": 2,
-        "cloud_cover": 71,
-        "pressure_msl": 1032.5999999999999,
-        "surface_pressure": 1030.5,
-        "wind_speed_10m": 7.5999999999999996,
-        "wind_direction_10m": 172,
-        "wind_gusts_10m": 18.699999999999999
-    },
-    "name": "Gävle"
+        "weather_code": 0,
+        "cloud_cover": 13,
+        "pressure_msl": 1030.9000000000001,
+        "surface_pressure": 1029.5,
+        "wind_speed_10m": 26.600000000000001,
+        "wind_direction_10m": 193,
+        "wind_gusts_10m": 44.600000000000001
+    }
 }

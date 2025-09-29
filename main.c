@@ -3,6 +3,7 @@
 
 #include "src/Cities.h"
 #include "src/Input.h"
+#include "src/Weather.h"  // Add this include
 
 int main()
 {
@@ -46,19 +47,52 @@ int main()
 				
 			} break;
 
-			case Input_Command_OK:
-			{
-				float temperature = 0.0f;
-				char unit[16];
-				result = City_GetValue(city, "temperature_2m", &temperature, unit);
-				if(result != 0)
-				{
-					printf("Failed to get temperature for city %s! Errorcode: %i\n", city->name, result);
-					continue;
-				}
-				printf("\n-----------------------------\nCurrent temperature in %s: %.2f %s\n-----------------------------\n\n", city->name, temperature, unit);
-				
-			} break;
+            case Input_Command_OK:
+            {
+                int weatherMenuActive = 1;
+                while(weatherMenuActive) {
+                    Weather_DisplayOptions();
+                    
+                    int choice;
+                    if(scanf("%d", &choice) != 1) {
+                        printf("Invalid input! Please enter a number.\n");
+                        while(getchar() != '\n'); // Clear input buffer
+                        continue;
+                    }
+                    
+                    if(choice == 0) {
+                        weatherMenuActive = 0; // Back to city selection
+                        break;
+                    }
+                    
+                    if(choice == 9) {
+                        Weather_DisplayAllData(city);
+                        continue;
+                    }
+                    
+                    if(choice < 1 || choice > 8) {
+                        printf("Invalid choice! Please select 0-9.\n");
+                        continue;
+                    }
+                    
+                    float value = 0.0f;
+                    char unit[16];
+                    char parameter_name[64];
+                    
+                    result = Weather_GetParameter(city, choice, &value, unit, parameter_name);
+                    if(result != 0) {
+                        printf("Failed to get %s for city %s! Errorcode: %i\n", 
+                               parameter_name, city->name, result);
+                        continue;
+                    }
+                    
+                    printf("\n-----------------------------\n");
+                    printf("Current %s in %s: %.2f %s\n", 
+                           parameter_name, city->name, value, unit);
+                    printf("-----------------------------\n\n");
+                }
+                
+            } break;
 
 			default:
 			{

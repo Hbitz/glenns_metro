@@ -1,6 +1,6 @@
 {
-    "latitude": 60.674900054931641,
-    "longitude": 17.141300201416016,
+    "latitude": 60.678173000000001,
+    "longitude": 17.138977000000001,
     "generationtime_ms": 0.07534027099609375,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
@@ -43,6 +43,5 @@
         "wind_speed_10m": 7.5999999999999996,
         "wind_direction_10m": 172,
         "wind_gusts_10m": 18.699999999999999
-    },
-    "name": "Gävle"
+    }
 }

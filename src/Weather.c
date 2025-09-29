@@ -21,28 +21,28 @@ void Weather_DisplayOptions(void) {
 int Weather_GetParameter(City* city, int choice, float* value, char* unit, char* parameter_name) {
     switch(choice) {
         case 1:
-            strcpy(parameter_name, "Temperature");
+            strncpy(parameter_name, "Temperature", 63);
             return City_GetValue(city, "temperature_2m", value, unit);
         case 2:
-            strcpy(parameter_name, "Wind Speed");
+            strncpy(parameter_name, "Wind Speed", 63);
             return City_GetValue(city, "wind_speed_10m", value, unit);
         case 3:
-            strcpy(parameter_name, "Wind Direction");
+            strncpy(parameter_name, "Wind Direction", 63);
             return City_GetValue(city, "wind_direction_10m", value, unit);
         case 4:
-            strcpy(parameter_name, "Weather Code");
+            strncpy(parameter_name, "Weather Code", 63);
             return City_GetValue(city, "weather_code", value, unit);
         case 5:
-            strcpy(parameter_name, "Humidity");
+            strncpy(parameter_name, "Humidity", 63);
             return City_GetValue(city, "relative_humidity_2m", value, unit);
         case 6:
-            strcpy(parameter_name, "Pressure");
+            strncpy(parameter_name, "Pressure", 63);
             return City_GetValue(city, "pressure_msl", value, unit);
         case 7:
-            strcpy(parameter_name, "Cloud Cover");
+            strncpy(parameter_name, "Cloud Cover", 63);
             return City_GetValue(city, "cloud_cover", value, unit);
         case 8:
-            strcpy(parameter_name, "Apparent Temperature");
+            strncpy(parameter_name, "Apparent Temperature", 63);
             return City_GetValue(city, "apparent_temperature", value, unit);
         default:
             return -1;

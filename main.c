@@ -6,9 +6,8 @@
 
 int main()
 {
-    printf("\n--------------WeatherClient--------------\n"
-           "Welcome to my awesome Weather Client!\n"
-           "Type 'exit', 'quit' or 'q' to exit the program.\n\n");
+    printf("\n--------------WeatherClient--------------\n\n"
+           "Type 'exit', 'quit' or 'q' to exit the program.\n");
 
     int result = 0;
     Cities *cities = NULL;

@@ -1,7 +1,7 @@
 {
     "latitude": 55.606524999999998,
     "longitude": 13.002045000000001,
-    "generationtime_ms": 0.066041946411132812,
+    "generationtime_ms": 0.083565711975097656,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
     "timezone_abbreviation": "GMT",
@@ -26,22 +26,22 @@
         "wind_gusts_10m": "km/h"
     },
     "current": {
-        "time": "2025-09-29T12:15",
+        "time": "2025-09-29T13:15",
         "interval": 900,
-        "temperature_2m": 15.800000000000001,
-        "relative_humidity_2m": 53,
-        "apparent_temperature": 12.199999999999999,
+        "temperature_2m": 15.199999999999999,
+        "relative_humidity_2m": 55,
+        "apparent_temperature": 11.800000000000001,
         "is_day": 1,
         "precipitation": 0.0,
         "rain": 0.0,
         "showers": 0.0,
         "snowfall": 0.0,
         "weather_code": 2,
-        "cloud_cover": 67,
-        "pressure_msl": 1026.7,
-        "surface_pressure": 1025.4000000000001,
-        "wind_speed_10m": 17.600000000000001,
-        "wind_direction_10m": 126,
-        "wind_gusts_10m": 35.299999999999997
+        "cloud_cover": 59,
+        "pressure_msl": 1026.4000000000001,
+        "surface_pressure": 1025.0999999999999,
+        "wind_speed_10m": 16.899999999999999,
+        "wind_direction_10m": 125,
+        "wind_gusts_10m": 34.200000000000003
     }
 }

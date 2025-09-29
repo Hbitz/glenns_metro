@@ -159,14 +159,14 @@ json_t *City_GetWeatherData(City *_City) {
         printf("Cache file invalid, fetching new data..\n");
       }
     } else {
-      printf("Cache is older than 15 minutes (age %.0f seconds), fetching new "
-             "data.\n",
-             age);
+      //  printf("Cache is older than 15 minutes (age %.0f seconds), fetching
+      //  new "
+      // "data.\n",
+      // age);
     }
   } else {
     printf("Cache file does not exist, fetching new data.\n");
   }
-  printf("testing5\n");
 
   int result = 0;
   HTTPClient *client = NULL;

@@ -1,7 +1,7 @@
 {
     "latitude": 67.855796813964844,
     "longitude": 20.225299835205078,
-    "generationtime_ms": 0.10991096496582031,
+    "generationtime_ms": 0.29647350311279297,
     "utc_offset_seconds": 0,
     "timezone": "GMT",
     "timezone_abbreviation": "GMT",
@@ -26,23 +26,23 @@
         "wind_gusts_10m": "km/h"
     },
     "current": {
-        "time": "2025-09-29T13:15",
+        "time": "2025-09-29T14:15",
         "interval": 900,
-        "temperature_2m": 10.1,
-        "relative_humidity_2m": 72,
-        "apparent_temperature": 5.0999999999999996,
+        "temperature_2m": 9.8000000000000007,
+        "relative_humidity_2m": 74,
+        "apparent_temperature": 4.9000000000000004,
         "is_day": 1,
         "precipitation": 0.0,
         "rain": 0.0,
         "showers": 0.0,
         "snowfall": 0.0,
         "weather_code": 0,
-        "cloud_cover": 0,
-        "pressure_msl": 1024.4000000000001,
-        "surface_pressure": 959.5,
+        "cloud_cover": 6,
+        "pressure_msl": 1024.3,
+        "surface_pressure": 959.29999999999995,
         "wind_speed_10m": 25.899999999999999,
-        "wind_direction_10m": 212,
-        "wind_gusts_10m": 46.100000000000001
+        "wind_direction_10m": 214,
+        "wind_gusts_10m": 45.399999999999999
     },
     "name": "Kiruna"
 }

@@ -4,3 +4,5 @@ meteo_app/weather_app
 cities/*
 cache/*
 WeatherClient
+.cache/*
+.idea/*

@@ -1,3 +1,5 @@
+USE_GNU = 1
+
 # C-kompilator (byt vid behov, t.ex. clang)
 # Detta är en enkel variabel definition
 CC := gcc
@@ -12,7 +14,10 @@ BUILD_DIR := build
 
 # Flaggor: standard, varningar, optimering + auto-dep för headers 
 # Detta är en enkel variabel definition
-CFLAGS := -std=c99 -Wall -Wextra -MMD -MP -Werror -Wfatal-errors -Wno-format-truncation -Iincludes -Ilibs
+CFLAGS := -g -O0 -std=c99 -Wall -Wextra -MMD -MP -Werror -Wfatal-errors -Wno-format-truncation -Iincludes -Ilibs
+ifeq ($(USE_GNU), 1)
+	CFLAGS += -D_GNU_SOURCE
+endif
 
 # Länkarflaggor
 # Detta är en enkel variabel definition

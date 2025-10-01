@@ -16,6 +16,8 @@ static inline Input_Command Input_SelectCity(Cities* _Cities, City** _CityPtr)
 	if(_CityPtr == NULL)
 		return -1;
 
+
+
 	printf("\n-----------------------------------------\n");
 	Cities_Print(_Cities);
 	printf("------------------------------------------\n");

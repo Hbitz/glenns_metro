@@ -1,4 +1,9 @@
 
+#ifndef INPUT_H
+#define INPUT_H
+
+#include <string.h>
+#include <stdio.h>
 #include "Cities.h"
 #include "City.h"
 
@@ -49,3 +54,5 @@ static inline Input_Command Input_SelectCity(Cities* _Cities, City** _CityPtr)
 
 	return -2;
 }
+
+#endif

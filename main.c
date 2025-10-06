@@ -80,7 +80,8 @@ int main()
                     Weather_DisplayAllData(weather_data, city);
                     getchar(); // Consume newline
                     getchar();
-                    continue;
+                
+                    break;
                 }
 
                 if (choice < 1 || choice > 8)

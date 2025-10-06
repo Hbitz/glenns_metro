@@ -67,10 +67,9 @@ int Weather_GetParameter(json_t* weather_data, City* city, int choice, float* va
         case 4:
             strcpy(parameter_name, "Weather Code");
             float weather_code = 0;
-            City_GetValue(weather_data, city, "weather_code", &weather_code, unit);
-            printf("Debug: Weather code value is %.0f\n", weather_code);
-            *description = Weather_ConvertCode(weather_code);
-            return 0;
+            int result = City_GetValue(weather_data, city, "weather_code", &weather_code, unit);
+            *description = Weather_ConvertCode((int)weather_code);
+            return result;
         case 5:
             strcpy(parameter_name, "Humidity");
             return City_GetValue(weather_data, city, "relative_humidity_2m", value, unit);

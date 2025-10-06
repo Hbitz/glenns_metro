@@ -1,6 +1,7 @@
 // #ifndef _GNU_SOURCE
 // #define _GNU_SOURCE
 // #endif
+#include "utils/KeyValueStore.h"
 #define TB_IMPL
 #include "ui.h"
 
@@ -57,6 +58,8 @@ int filtered_count = 0;
 char **list_of_cities = NULL; // dynamic array of string pointers
 size_t cities_count = 0;      // how many strings
 size_t cities_capacity = 0;
+
+KeyValueStore *city_data = NULL;
 
 void add_city(const char *name) {
   if (cities_count == cities_capacity) {
@@ -222,6 +225,14 @@ void render() {
   tb_clear();
   render_box_two();
   render_box_three();
+
+  if (city_data != NULL) { //&& city_data->count != NULL) {
+    for (size_t i = 0; i < city_data->count; i++) {
+      draw_text(BOX_THREE_OFFSET + 1, 3 + i, 60, city_data->keys[i], TB_WHITE,
+                TB_DEFAULT);
+      draw_text(1, 41, 60, city_data->values[0], TB_WHITE, TB_DEFAULT);
+    }
+  }
   tb_present();
 }
 
@@ -299,10 +310,11 @@ void start_ui(ui_city_selection_update get_city_data) {
   tb_shutdown();
 }
 
-void ui_add_city_data(KeyValueStore* city_data) {
-  if (city_data == NULL && city_data->count < 1) return;
-  for (size_t i = 0; i < city_data->count; i++) {
-    draw_text(1, 40, 60, city_data->keys[0], TB_WHITE, TB_DEFAULT);
-    draw_text(1, 41, 60, city_data->values[0], TB_WHITE, TB_DEFAULT);
-  }
+void ui_add_city_data(KeyValueStore *city_data_in) {
+  city_data = city_data_in;
+  // if (city_data == NULL && city_data->count < 1) return;
+  // for (size_t i = 0; i < city_data->count; i++) {
+  //   draw_text(1, 40, 60, city_data->keys[0], TB_WHITE, TB_DEFAULT);
+  //   draw_text(1, 41, 60, city_data->values[0], TB_WHITE, TB_DEFAULT);
+  // }
 }

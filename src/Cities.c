@@ -6,8 +6,8 @@
 #include <strings.h>
 
 #include "City.h"
-#include "tinydir.h"
 #include "jansson/jansson.h"
+#include "tinydir.h"
 #include "utils/utils.h"
 
 const char *Cities_list = "Stockholm:59.3293:18.0686\n"
@@ -102,14 +102,15 @@ KeyValueStore *flatten_json(json_t *nested_json) {
   return store;
 }
 
-KeyValueStore* Cities_GetCityValues(Cities* cities,const char *name) {
-  City **CityPtr = NULL;
-  Cities_GetName(cities, name, CityPtr);
+KeyValueStore *Cities_GetCityValues(Cities *cities, const char *name) {
+  City *CityPtr = NULL;
+  Cities_GetName(cities, name, &CityPtr);
   json_t *city_json_data = NULL;
-  if (CityPtr != NULL) {
-    city_json_data = City_GetWeatherData(*CityPtr);
+  if (CityPtr == NULL) {
     return NULL;
   }
+
+  city_json_data = City_GetWeatherData(CityPtr);
   return flatten_json(city_json_data);
 }
 

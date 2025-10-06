@@ -80,7 +80,8 @@ int main()
                     Weather_DisplayAllData(weather_data, city);
                     getchar(); // Consume newline
                     getchar();
-                
+                    weatherMenuActive = 0; // Back to city selection
+                    json_decref(weather_data);
                     break;
                 }
 
@@ -125,6 +126,6 @@ int main()
         
     }
     
-    Cities_Destroy(cities, &city);
+    Cities_Dispose(&cities);
     return 0;
 }

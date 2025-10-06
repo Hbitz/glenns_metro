@@ -159,7 +159,8 @@ json_t *City_GetWeatherData(City *_City) {
   // printf("start of function, city name is %s\n", _City->name);
   // if city has weather data is cached
   json_error_t error;
-  json_t *root = json_load_file(_City->name, 0, &error);
+  //json_t *root = json_load_file(_City->name, 0, &error);
+  json_t *root = NULL;
 
   // Variables to use when comparing time
   char cache_filepath[256];
@@ -176,20 +177,28 @@ json_t *City_GetWeatherData(City *_City) {
     {
       // printf("Loading cached response from %s (age %.0f seconds)\n",
       // cache_filepath, age);
-      root = json_load_file(cache_filepath, 0, NULL);
-      // Now checking if loaded data has "temperature"
-      json_t *temperature = json_object_get(root, "current");
-      temperature = json_object_get(temperature, "temperature_2m");
-      if (temperature == NULL) {
-        // If temperature does not exist, we need to fetch new data
-        printf("No cached temperature data for City %s, fetching new data...\n",
-               _City->name);
+      root = json_load_file(cache_filepath, 0, &error);
+      // If loading failed, print error and continue to fetch new data
+      if (root == NULL) {
+           printf("Failed to load JSON from '%s': %s (line %d, column %d)\n",
+           cache_filepath, error.text, error.line, error.column);
       }
+      else
+      {
+        // Now checking if loaded data has "temperature"
+        json_t *temperature = json_object_get(root, "current");
+        temperature = json_object_get(temperature, "temperature_2m");
+        if (temperature == NULL) {
+          // If temperature does not exist, we need to fetch new data
+          printf("No cached temperature data for City %s, fetching new data...\n",
+                _City->name);
+          json_decref(root); // Free unused cache, because if we don't have weather data we want to fetch from api
+          root = NULL; // 
+        }
 
-      else if (root != NULL) {
-        return root; // fresh cache
-      } else {
-        printf("Cache file invalid, fetching new data..\n");
+        else {
+          return root; // fresh cache
+        } 
       }
     } else {
       //  printf("Cache is older than 15 minutes (age %.0f seconds), fetching

@@ -71,6 +71,10 @@ json_t *HTTPClient_GET(HTTPClient *_Client, const char *_URL) {
         printf("Failed to parse cached JSON response! Removing cache file.\n");
         remove(cache_filepath);
       } else {
+        // Ensure we don't overwrite without freeing
+        if (_Client->response != NULL) {
+            json_decref(_Client->response);  // 🔥 prevent memory leak
+        }
         _Client->response = json;
         return _Client->response;
       }
@@ -112,7 +116,10 @@ json_t *HTTPClient_GET(HTTPClient *_Client, const char *_URL) {
   }
 
   json_dump_file(json, cache_filepath, JSON_INDENT(4));
-
+  // Ensure we don't overwrite without freeing
+  if (_Client->response != NULL) {
+    json_decref(_Client->response);  // 🔥 prevent memory leak
+  }
   _Client->response = json;
 
   return _Client->response;

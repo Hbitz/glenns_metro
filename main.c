@@ -20,7 +20,7 @@ int main()
         return -1;
     }
     
-    City_InputCommand_Weathermenu(cities); // calling Weather_HandleMenu(City* city) if successful
+    Weather_HandleInput(cities); // calling Weather_HandleMenu(City* city) if successful
     
 
     Cities_Dispose(&cities);

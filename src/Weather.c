@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void Weather_DisplayOptions(void) {
+void Weather_DisplayOptions() {
     printf("\n=== Weather Data Options ===\n");
     printf("1. Temperature (°C)\n");
     printf("2. Wind Speed (km/h)\n");
@@ -171,7 +171,7 @@ void Weather_HandleMenu(City* city) {
     }
 }
 
-void City_InputCommand_Weathermenu(Cities* cities) {
+void Weather_HandleInput(Cities* cities) {
     City *city = NULL;
     int doStop = 0;
     

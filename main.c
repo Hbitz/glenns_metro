@@ -19,11 +19,11 @@ int main()
         printf("Failed to initialize Cities struct! Errorcode: %i\n", result);
         return -1;
     }
-
+    City *city = NULL;
     int doStop = 0;
     while (doStop == 0)
     {
-        City *city = NULL;
+        city = NULL;
         Input_Command cmd = Input_SelectCity(cities, &city);
         switch (cmd)
         {
@@ -64,12 +64,20 @@ int main()
                 if (choice == 0)
                 {
                     weatherMenuActive = 0; // Back to city selection
+                    getchar(); // Consume newline
                     break;
+                }
+                json_t *weather_data = City_GetWeatherData(city);
+
+                if (weather_data == NULL)
+                {
+                    printf("Failed to retrieve weather data for city %s!\n", city->name);
+                    continue;
                 }
 
                 if (choice == 9)
                 {
-                    Weather_DisplayAllData(city);
+                    Weather_DisplayAllData(weather_data, city);
                     getchar(); // Consume newline
                     getchar();
                     continue;
@@ -84,9 +92,11 @@ int main()
                 float value = 0.0f;
                 char unit[16];
                 char parameter_name[64];
+                char* description = NULL;
+
 
                 result =
-                    Weather_GetParameter(city, choice, &value, unit, parameter_name);
+                    Weather_GetParameter(weather_data, city, choice, &value, unit, parameter_name, &description);
                 if (result != 0)
                 {
                     printf("Failed to get %s for city %s! Errorcode: %i\n",
@@ -95,11 +105,12 @@ int main()
                 }
 
                 printf("\n-----------------------------\n");
-                printf("Current %s in %s: %.2f %s\n", parameter_name, city->name, value,
-                       unit);
+                printf("Current %s in %s: %.2f %s %s\n", parameter_name, city->name, value,
+                       unit, description ? description : "");
                 printf("-----------------------------\n\n");
                 getchar(); // Consume newline
                 getchar(); // Wait for user to press Enter
+                json_decref(weather_data);
             }
         }
         break;
@@ -110,7 +121,9 @@ int main()
         }
         break;
         }
+        
     }
-
+    
+    Cities_Destroy(cities, &city);
     return 0;
 }

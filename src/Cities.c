@@ -47,41 +47,6 @@ int Cities_Init(Cities** _CitiesPtr)
 	return 0;
 }
 
-void Cities_WriteToFile(City _City)
-{
-	json_t* root = json_object();
-	if(root == NULL)
-	{
-		printf("Failed to create JSON root object for City %s\n", _City.name);
-	}
-	json_object_set_new(root, "name", json_string(_City.name));
-	json_object_set_new(root, "latitude", json_real(_City.latitude));
-	json_object_set_new(root, "longitude", json_real(_City.longitude));
-
-	char filename[256];
-	snprintf(filename, sizeof(filename), "cities/%s.json", _City.name);
-	
-	json_error_t error;
-	json_t* filecheck = json_load_file(filename, 0, &error);
-	if (!filecheck)
-	{
-		// file does not exist, create it
-		int result = json_dump_file(root, filename, JSON_INDENT(4) | JSON_PRESERVE_ORDER);
-		json_decref(root);
-		if(result != 0)
-		{
-			printf("Failed to write City %s to file %s! Errorcode: %i\n", _City.name, filename, result);
-		}
-	}
-	else
-	{
-		// file exists, do not overwrite
-		json_decref(filecheck);
-		json_decref(root);
-		return;
-	}
-}
-
 void Cities_AddFromCache(Cities* _Cities)
 {
 	if(_Cities == NULL)
@@ -236,7 +201,6 @@ int Cities_Create(Cities* _Cities, const char* _Name, const char* _Latitude, con
 	
 	LinkedList_Push(&_Cities->list, new_City);
 	// write_city_to_file if not exist
-	Cities_WriteToFile(*new_City);
 
 
 	

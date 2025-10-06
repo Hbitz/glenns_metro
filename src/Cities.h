@@ -17,7 +17,7 @@ typedef struct Cities
 
 int Cities_Init(Cities** _CitiesPtr);
 
-void Cities_WriteToFile(City _City);
+
 void Cities_AddFromCache(Cities* _Cities);
 void Cities_AddFromStringList(Cities* _Cities, const char* _StringList);
 int Cities_Create(Cities* _Cities, const char* _Name, const char* _Latitude, const char* _Longitude, City** _City);

@@ -12,13 +12,15 @@ typedef struct City
 	char* name;
 	float latitude;
 	float longitude;
+	json_t* current_cache;
 
 } City;
 
+json_t *City_GetWeatherData(City *_City);
 
 int City_Init(const char* _Name, const char* _Latitude, const char* _Longitude, City** _CityPtr);
 
-int City_GetValue(City* _City, const char* _Name, float* _Value, char _Unit[16]);
+int City_GetValue(json_t* weather_data, City *_City, const char *_Name, float *_Value, char _Unit[16]);
 
 void City_Dispose(City** _CityPtr);
 

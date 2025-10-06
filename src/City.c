@@ -15,6 +15,43 @@ json_t *City_GetWeatherData(City *_City);
 
 //------------------------------------------------
 
+
+void City_CreateFile(City _City)
+{
+	json_t* root = json_object();
+	if(root == NULL)
+	{
+		printf("Failed to create JSON root object for City %s\n", _City.name);
+	}
+	json_object_set_new(root, "name", json_string(_City.name));
+	json_object_set_new(root, "latitude", json_real(_City.latitude));
+	json_object_set_new(root, "longitude", json_real(_City.longitude));
+
+	char filename[256];
+	snprintf(filename, sizeof(filename), "cities/%s.json", _City.name);
+	
+	json_error_t error;
+	json_t* filecheck = json_load_file(filename, 0, &error);
+	if (!filecheck)
+	{
+		// file does not exist, create it
+		int result = json_dump_file(root, filename, JSON_INDENT(4) | JSON_PRESERVE_ORDER);
+		json_decref(root);
+		if(result != 0)
+		{
+			printf("Failed to write City %s to file %s! Errorcode: %i\n", _City.name, filename, result);
+		}
+	}
+	else
+	{
+		// file exists, do not overwrite
+		json_decref(filecheck);
+		json_decref(root);
+		return;
+	}
+}
+
+
 int City_Init(const char *_Name, const char *_Latitude, const char *_Longitude,
               City **_CityPtr) {
   if (_Name == NULL || _CityPtr == NULL)
@@ -47,39 +84,36 @@ int City_Init(const char *_Name, const char *_Latitude, const char *_Longitude,
 
   *(_CityPtr) = _City;
 
+  City_CreateFile(*_City);
+
   return 0;
 }
 
-int City_GetValue(City *_City, const char *_Name, float *_Value,
+int City_GetValue(json_t* weather_data, City *_City, const char *_Name, float *_Value,
                   char _Unit[16]) {
-  if (_City == NULL || _Name == NULL || _Value == NULL)
+  if (weather_data == NULL || _City == NULL || _Name == NULL || _Value == NULL)
     return -1;
 
-  json_t *weather = City_GetWeatherData(_City);
-  if (weather == NULL) {
-    printf("Failed to get weather data for City %s\n", _City->name);
-    return -2;
-  }
 
-  json_t *current = json_object_get(weather, "current");
+  json_t *current = json_object_get(weather_data, "current");
   if (current == NULL) {
     printf("No 'current' field in weather data for City %s\n", _City->name);
-    json_decref(weather);
+    json_decref(weather_data);
     return -3;
   }
 
-  json_t *current_units = json_object_get(weather, "current_units");
+  json_t *current_units = json_object_get(weather_data, "current_units");
   if (current_units == NULL) {
     printf("No 'current_units' field in weather data for City %s\n",
            _City->name);
-    json_decref(weather);
+    json_decref(weather_data);
     return -4;
   }
 
   json_t *json_value = json_object_get(current, _Name);
   if (json_value == NULL) {
     printf("No '%s' field in weather data for City %s\n", _Name, _City->name);
-    json_decref(weather);
+    json_decref(weather_data);
     return -5;
   }
 
@@ -87,7 +121,7 @@ int City_GetValue(City *_City, const char *_Name, float *_Value,
   if (json_unit == NULL) {
     printf("No unit for '%s' field in weather data for City %s\n", _Name,
            _City->name);
-    json_decref(weather);
+    json_decref(weather_data);
     return -6;
   }
 
@@ -96,7 +130,6 @@ int City_GetValue(City *_City, const char *_Name, float *_Value,
   const char *unit_str = json_string_value(json_unit);
   snprintf(_Unit, 16, "%s", unit_str == NULL ? "" : unit_str);
 
-  json_decref(weather);
   return 0;
 }
 

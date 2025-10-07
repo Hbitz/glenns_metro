@@ -30,4 +30,6 @@ void City_Dispose(City **_CityPtr);
 
 json_t *City_GetWeatherData(City *_City);
 
+int City_GetKeyValue(City *_City, const char* location, const char* location_unit, const char* key, char* value);
+
 #endif // _CITY_H

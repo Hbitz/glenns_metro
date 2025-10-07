@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <time.h>
 
+#include "jansson/jansson_private.h"
 #include "utils/HTTPClient.h"
 #include "utils/utils.h"
 
@@ -18,6 +19,28 @@
 json_t *City_GetWeatherData(City *_City);
 
 //------------------------------------------------
+
+char *json_value_to_string(json_t *value) {
+  char buffer[1024];
+
+  if (json_is_string(value)) {
+    return strdup(json_string_value(value));
+  } else if (json_is_integer(value)) {
+    snprintf(buffer, sizeof(buffer), "%lld", json_integer_value(value));
+    return strdup(buffer);
+  } else if (json_is_real(value)) {
+    snprintf(buffer, sizeof(buffer), "%f", json_real_value(value));
+    return strdup(buffer);
+  } else if (json_is_true(value)) {
+    return strdup("true");
+  } else if (json_is_false(value)) {
+    return strdup("false");
+  } else if (json_is_null(value)) {
+    return strdup("null");
+  }
+
+  return strdup("");
+}
 
 int City_Init(const char *_Name, const char *_Latitude, const char *_Longitude,
               City **_CityPtr) {
@@ -50,6 +73,32 @@ int City_Init(const char *_Name, const char *_Latitude, const char *_Longitude,
     _City->longitude = 0.0f;
 
   *(_CityPtr) = _City;
+
+  return 0;
+}
+
+int City_GetKeyValue(City *_City, const char* location, const char* location_unit, const char* key, char* value) {
+  json_t *weather = City_GetWeatherData(_City);
+  if (weather == NULL) {
+    return -2;
+  }
+
+  if (location != NULL || location_unit != NULL) {
+    json_t *nested = json_object_get(weather, location);
+    json_t* valueName = json_object_get(nested, key);
+
+    json_t *nested_unit = json_object_get(weather, location_unit);
+    json_t* valueUnit = json_object_get(nested_unit, key);
+
+    //TODO: Fix fixed maxlen
+    snprintf(value, 29, "%s %s", json_value_to_string(valueName), json_value_to_string(valueUnit));
+  }
+  else {
+    json_t* value_for_key = json_object_get(weather, key);
+
+    //TODO: Fix fixed maxlen
+    snprintf(value, 29, "%s", json_value_to_string(value_for_key));
+  }
 
   return 0;
 }

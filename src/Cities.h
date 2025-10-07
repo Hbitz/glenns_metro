@@ -5,7 +5,6 @@
 // #define _GNU_SOURCE
 // #endif
 
-#include "utils/KeyValueStore.h"
 #include "utils/LinkedList.h"
 
 typedef struct Cities Cities;
@@ -17,6 +16,23 @@ typedef struct Cities
 	LinkedList list;
 	
 } Cities;
+
+//-------------------------------
+
+typedef struct {
+	const char *key;
+	const char *location;
+	const char *location_unit;
+} AllowedKey;
+
+static const AllowedKey ALLOWED_KEYS[] = {
+	{"temperature_2m", "current", "current_units"},
+	{"latitude", NULL, NULL},
+	{"longitude", NULL, NULL},
+  };
+
+static const size_t ALLOWED_KEYS_COUNT = sizeof(ALLOWED_KEYS) / sizeof(AllowedKey);
+//-------------------------------
 
 
 int Cities_Init(Cities** _CitiesPtr);
@@ -33,6 +49,6 @@ void Cities_Print(Cities* _Cities);
 
 void Cities_Dispose(Cities** _CitiesPtr);
 char** Cities_Get_Names(Cities* _Cities, size_t* out_count);
-KeyValueStore* Cities_GetCityValues(Cities* cities, const char *name);
+LinkedList* Cities_GetCityValues(Cities* cities, const char *name);
 
 #endif // _CITIES_H

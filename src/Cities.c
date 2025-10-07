@@ -9,6 +9,7 @@
 #include "jansson/jansson.h"
 #include "tinydir.h"
 #include "utils/utils.h"
+#include <stdbool.h>
 
 const char *Cities_list = "Stockholm:59.3293:18.0686\n"
                           "Göteborg:57.7089:11.9746\n"
@@ -27,91 +28,56 @@ const char *Cities_list = "Stockholm:59.3293:18.0686\n"
                           "Luleå:65.5848:22.1567\n"
                           "Kiruna:67.8558:20.2253\n";
 
-char *json_value_to_string(json_t *value) {
-  char buffer[1024];
-
-  if (json_is_string(value)) {
-    return strdup(json_string_value(value));
-  } else if (json_is_integer(value)) {
-    snprintf(buffer, sizeof(buffer), "%lld", json_integer_value(value));
-    return strdup(buffer);
-  } else if (json_is_real(value)) {
-    snprintf(buffer, sizeof(buffer), "%f", json_real_value(value));
-    return strdup(buffer);
-  } else if (json_is_true(value)) {
-    return strdup("true");
-  } else if (json_is_false(value)) {
-    return strdup("false");
-  } else if (json_is_null(value)) {
-    return strdup("null");
+KeyValuePair* create_key_value_pair(const char *key, const char *value) {
+  KeyValuePair *pair = malloc(sizeof(KeyValuePair));
+  if (pair == NULL) {
+    return NULL;
   }
 
-  return strdup("");
+  pair->key = strdup(key);
+  pair->value = strdup(value);
+
+  if (pair->key == NULL || pair->value == NULL) {
+    free(pair->key);
+    free(pair->value);
+    free(pair);
+    return NULL;
+  }
+
+  return pair;
 }
 
-void flatten_json_recursive(json_t *obj, const char *prefix,
-                            KeyValueStore *store) {
-  const char *key;
-  json_t *value;
-
-  json_object_foreach(obj, key, value) {
-    char new_key[512];
-
-    // Build the flattened key
-    if (prefix && strlen(prefix) > 0) {
-      snprintf(new_key, sizeof(new_key), "%s.%s", prefix, key);
-    } else {
-      snprintf(new_key, sizeof(new_key), "%s", key);
-    }
-
-    if (json_is_object(value)) {
-      // Recursively flatten nested objects
-      flatten_json_recursive(value, new_key, store);
-    } else if (json_is_array(value)) {
-      // Handle arrays by indexing
-      size_t index;
-      json_t *array_value;
-      json_array_foreach(value, index, array_value) {
-        char array_key[512];
-        snprintf(array_key, sizeof(array_key), "%s[%zu]", new_key, index);
-
-        if (json_is_object(array_value)) {
-          flatten_json_recursive(array_value, array_key, store);
-        } else {
-          char *str_value = json_value_to_string(array_value);
-          kvstore_add(store, array_key, str_value);
-          free(str_value);
-        }
-      }
-    } else {
-      // Leaf value - convert to string and add to store
-      char *str_value = json_value_to_string(value);
-      kvstore_add(store, new_key, str_value);
-      free(str_value);
-    }
+void add_to_list(LinkedList *list, const char *key, const char *value) {
+  KeyValuePair *pair = create_key_value_pair(key, value);
+  if (pair != NULL) {
+    LinkedList_AddLast(list, pair);
   }
 }
 
-KeyValueStore *flatten_json(json_t *nested_json) {
-  KeyValueStore *store = kvstore_create();
-
-  if (json_is_object(nested_json)) {
-    flatten_json_recursive(nested_json, "", store);
-  }
-
-  return store;
-}
-
-KeyValueStore *Cities_GetCityValues(Cities *cities, const char *name) {
+LinkedList *Cities_GetCityValues(Cities *cities, const char *name) {
   City *CityPtr = NULL;
   Cities_GetName(cities, name, &CityPtr);
-  json_t *city_json_data = NULL;
+
   if (CityPtr == NULL) {
     return NULL;
   }
 
-  city_json_data = City_GetWeatherData(CityPtr);
-  return flatten_json(city_json_data);
+  LinkedList *list = malloc(sizeof(LinkedList));
+  if (list == NULL) {
+    return NULL;
+  }
+
+  LinkedList_Initialize(list);
+
+
+  for (size_t i = 0; i < ALLOWED_KEYS_COUNT; i++) {
+    char value[30];
+    const int result = City_GetKeyValue(CityPtr, ALLOWED_KEYS[i].location,ALLOWED_KEYS[i].location_unit, ALLOWED_KEYS[i].key, value);
+    if (result == 0) {
+      add_to_list(list, ALLOWED_KEYS[i].key, value);
+    }
+  }
+  return list;
 }
 
 int Cities_Init(Cities **_CitiesPtr) {

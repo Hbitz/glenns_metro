@@ -15,6 +15,13 @@
 // 	return copy;
 // }
 
+
+
+typedef struct KeyValuePair {
+	char *key;
+	char *value;
+} KeyValuePair;
+
 static inline int create_folder(const char* _Path)
 {
 	#if defined _WIN32

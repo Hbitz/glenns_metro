@@ -3,12 +3,11 @@
 //#include "src/Input.h"
 #include "utils/utils.h"
 #include <stdio.h>
-#include "utils/KeyValueStore.h"
 
 Cities *cities = NULL;
 
 void ui_get_city_data(const char *input) {
-  KeyValueStore* city_data = Cities_GetCityValues(cities, input);
+  LinkedList* city_data = Cities_GetCityValues(cities, input);
   ui_add_city_data(city_data);
 }
 
@@ -33,7 +32,7 @@ int main() {
   start_ui(ui_get_city_data);
   free_cities();
 
-  free(names); // Remember to free it
+  free(names);
 
   // printf("\n--------------WeatherClient--------------\n"
   //        "Welcome to my awesome Weather Client!\n"
